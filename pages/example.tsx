@@ -1,5 +1,5 @@
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
-import { prisma } from '../lib/prisma';
+import { prisma } from '../src/app/lib/prisma';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
       const user = await prisma.user.findFirst({
