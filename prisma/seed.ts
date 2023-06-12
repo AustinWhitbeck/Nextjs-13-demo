@@ -1,8 +1,12 @@
 import { PrismaClient } from "@prisma/client";
+import { hash } from "bcrypt";
 
 const prisma = new PrismaClient();
 
 async function main() {
+  // TODO: look into hashing more, understand salt and rounds.
+  const password = await hash("test", 12);
+
   // Check to see if our test user works (upsert vs. create)
   // if the user does exist, then it will do nothing, but if it doesn't ,then create
   // the user.
@@ -12,7 +16,7 @@ async function main() {
     create: {
       email: "test@test.com",
       name: "Test User",
-      password: `$2y$12$GBfcgD6XwaMferSOdYGiduw3Awuo95QAPhxFE0oNJ.Ds8qj3pzEZy`,
+      password: password,
     },
   });
   console.log({ user });
