@@ -35,8 +35,9 @@ export const authOptions: NextAuthOptions = {
           },
         });
 
-        console.log("user info n db", user);
-        console.log("credentials value", credentials);
+        // NOTE: use to compare current user vs. what's in the db
+        // console.log("user info n db", user);
+        // console.log("credentials value", credentials);
 
         // if we don't find a user
         if (!user) {
@@ -48,21 +49,16 @@ export const authOptions: NextAuthOptions = {
         // hash comparison.
 
         // pass the user provided password as the 1st arg, and the password in the DB for the 2nd arg
-        console.log("credentials password", credentials.password);
         const isPasswordValid = await compare(
           credentials.password,
           user.password
         );
 
-        // const isPasswordValid = credentials.password === user.password;
-
-        console.log("isPasswordValid", isPasswordValid);
-
         if (!isPasswordValid) {
           return null;
         }
 
-        const { id, email, name } = user;
+        const { id, email, name, seePricing, awardQuotes } = user;
 
         console.log("user from db info", user);
 
@@ -70,7 +66,10 @@ export const authOptions: NextAuthOptions = {
           id: id.toString(),
           email: email,
           name: name,
-          randomKey: "hey cool",
+          permissions: {
+            seePricing,
+            awardQuotes,
+          },
         };
       },
     }),
@@ -84,7 +83,7 @@ export const authOptions: NextAuthOptions = {
         user: {
           ...session.user,
           id: token.id,
-          // randomKey: token.randomKey,
+          permissions: token.permissions,
         },
       };
     },
@@ -95,12 +94,13 @@ export const authOptions: NextAuthOptions = {
       // NOTE: typecasting as any, but example of adding our own interface into what a User object might be.
       // might be something like  MillSteelUser extends User, and add what we need.
 
-      // const u = user as unknown as any;
+      const u = user as unknown as any;
 
       if (user) {
         return {
           ...token,
-          id: user.id,
+          id: u.id,
+          permissions: u.permissions,
         };
       }
       return token;

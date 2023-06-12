@@ -17,6 +17,8 @@ async function main() {
       email: "test@test.com",
       name: "Test User",
       password: password,
+      seePricing: true,
+      awardQuotes: false,
     },
   });
   console.log({ user });

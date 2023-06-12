@@ -36,3 +36,9 @@ npx prisma db seed
    client side, server side, or middleware
 
    (middleware recommended)
+
+<!-- NOTES ON PRISMA -->
+
+1. Prisma can open up the studio to view the tables and see what local data looks like. run:
+
+   npx prisma studio
