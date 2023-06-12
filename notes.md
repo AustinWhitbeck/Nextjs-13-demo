@@ -27,3 +27,12 @@ npx prisma db seed
 
 4. You do not want to keep making connections to the Prisma client created every time you make an update, has built in pooling
    Want to use a "singleton" method. One single object that manages the connection to your database.
+
+5. Set arbitrary keys onto the JWT. This is in the `callbacks` key in the auth route /app/api/auth/[...nextauth]/route.ts
+   a. session key - handles creation and management of JWT
+   b. jwt - handles session object, used whenever you fetch the session.
+
+6. Ways to do protected routes
+   client side, server side, or middleware
+
+   (middleware recommended)

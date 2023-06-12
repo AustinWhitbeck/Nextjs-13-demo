@@ -70,10 +70,42 @@ export const authOptions: NextAuthOptions = {
           id: id.toString(),
           email: email,
           name: name,
+          randomKey: "hey cool",
         };
       },
     }),
   ],
+
+  callbacks: {
+    session: ({ session, token }) => {
+      console.log("Session Callback", { session, token });
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: token.id,
+          // randomKey: token.randomKey,
+        },
+      };
+    },
+    jwt: ({ token, user }) => {
+      // User is only passed into the function, the first time the user logs in.
+      console.log("JWT Callback", { token, user });
+
+      // NOTE: typecasting as any, but example of adding our own interface into what a User object might be.
+      // might be something like  MillSteelUser extends User, and add what we need.
+
+      // const u = user as unknown as any;
+
+      if (user) {
+        return {
+          ...token,
+          id: user.id,
+        };
+      }
+      return token;
+    },
+  },
 };
 
 // NOTE:
