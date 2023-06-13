@@ -1,4 +1,4 @@
-import NextAuth from "next-auth";
+import NextAuth, { DefaultSession } from "next-auth";
 
 type Permissions = {
   seePricing: boolean;
@@ -9,10 +9,9 @@ declare module "next-auth" {
   /**
    * Returned by `useSession`, `getSession` and received as a prop on the `SessionProvider` React Context
    */
-  interface Session {
+  interface Session extends DefaultSession {
     user: {
-      /** The user's postal address. */
       permissions: Permissions;
-    };
+    } & DefaultSession["user"];
   }
 }

@@ -1,0 +1,10 @@
+.navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.flexRow {
+  display: flex;
+  flex-direction: row;
+}

@@ -1,6 +1,7 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
 import { Providers } from './providers'
+import NavMenu from './components/NavMenu'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,6 +21,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Providers>
+          {/* NOTE: TypeSript is not ready for server components yet. Need to have this exception until they fix it. */}
+          {/* @ts-expect-error Server Component */}
+          <NavMenu />
           {children}
         </Providers>
       </body>
