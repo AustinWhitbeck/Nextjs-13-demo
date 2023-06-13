@@ -76,17 +76,6 @@ export const authOptions: NextAuthOptions = {
   ],
 
   callbacks: {
-    session: ({ session, token }) => {
-      console.log("Session Callback", { session, token });
-      return {
-        ...session,
-        user: {
-          ...session.user,
-          id: token.id,
-          permissions: token.permissions,
-        },
-      };
-    },
     jwt: ({ token, user }) => {
       // User is only passed into the function, the first time the user logs in.
       console.log("JWT Callback", { token, user });
@@ -104,6 +93,17 @@ export const authOptions: NextAuthOptions = {
         };
       }
       return token;
+    },
+    session: ({ session, token }) => {
+      console.log("Session Callback", { session, token });
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: token.id,
+          permissions: token.permissions,
+        },
+      };
     },
   },
 };
