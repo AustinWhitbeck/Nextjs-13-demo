@@ -20,18 +20,18 @@ const exampleItems = [
 const Pricing = async () => {
       const session = await getServerSession(authOptions);
       console.log('session value', session);
-      let canSeePricing = false;
-      const tempSessionCasting = session as any;
-      if (tempSessionCasting?.user?.permissions?.seePricing) {
-        canSeePricing = true;
+      let pricingIsAllowed = false;
+      if (session?.user.permissions.seePricing) {
+        pricingIsAllowed = true;
       }
+
 
   return (
     <>
     <h1>Example Pricing Page</h1>
     {exampleItems.map((item) => {
         const { name, description, quantity, pricing } = item;
-        const pricingValue = canSeePricing ? pricing : 'Not Authorized to see Pricing'
+        const pricingValue = pricingIsAllowed ? pricing : 'Not Authorized to see Pricing'
         return (
             <>
                 <h3>{name}</h3>
