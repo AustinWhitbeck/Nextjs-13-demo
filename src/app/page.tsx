@@ -1,8 +1,7 @@
 import { getServerSession } from "next-auth"
-import { prisma } from "./lib/prisma"
+// import { prisma } from "./lib/prisma"
 import { authOptions } from "./api/auth/[...nextauth]/route"
 import { User } from "./user";
-import { LoginButton, LogoutButton } from "./auth";
 
 
 // ** NOTES ** //
@@ -32,8 +31,6 @@ export default async function Home() {
   return (
    
     <main>
-      <LoginButton />
-      <LogoutButton />
       <h2>Server Session</h2>
       <pre>{JSON.stringify(session)}</pre>
       <h2>Client Call</h2>

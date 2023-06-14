@@ -21,7 +21,6 @@ async function main() {
       awardQuotes: false,
     },
   });
-  console.log({ user });
 }
 main()
   .then(() => prisma.$disconnect())
